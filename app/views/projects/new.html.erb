@@ -1,0 +1,11 @@
+<h1>Create new Project Here</h1>
+    <div >
+      <%= form_with(model: @project , url: 'new_project_path' , method: :get) do |f| %>
+        <h1>Bug Tracking System </h1>
+        <%= f.label :title %><br>
+        <%= f.text_field :title %><br><br><br>
+      <%= f.submit "createproject", class: "btn btn-primary"%><br><br>
+
+    </div>
+    <!--... -->
+<% end %>

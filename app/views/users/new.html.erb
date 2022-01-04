@@ -1,0 +1,17 @@
+
+<%= form_for @user  do |f| %>
+    <h1>Bug Tracking System </h1><br><br>
+    <h1>Sign Up</h1>
+ <%= f.label :name %><br>
+    <%= f.text_field :name %><br><br><br>
+
+    <%= f.label :email %><br>
+    <%= f.text_field :email %><br><br><br>
+
+    <%= f.label :password %><br>
+    <%= f.password_field :password %><br><br><br>
+    <%= f.label :user_type %><br>
+    <%= f.select :user_type,['select User type', 'Manager',' Developer',' QA '] %>
+    <%= f.submit %>
+    <!--... -->
+  <% end %>

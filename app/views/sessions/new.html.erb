@@ -1,0 +1,13 @@
+<div >
+<%= form_with(model: @session , url: login_path) do |f| %>
+    <h1>Bug Tracking System </h1>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %><br><br><br>
+
+    <%= f.label :password %><br>
+    <%= f.password_field :password %><br><br><br>
+    <%= f.submit "Login", class: "btn btn-primary"%><br><br>
+    <%= link_to 'Sign up' .html_safe, '/signup' %>
+</div>
+    <!--... -->
+  <% end %>

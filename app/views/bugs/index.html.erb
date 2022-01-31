@@ -1,0 +1,8 @@
+<% @bug.each do |bug| %>
+<a href="/bugs/<%= bug.id%>">
+<%= bug.descriptive_title %><br>
+<% end %>
+
+<%= link_to'createbug', new_bug_path %><br><br>
+
+

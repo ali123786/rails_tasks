@@ -1,0 +1,2 @@
+<h1>users List</h1>
+<%= select_tag "users", options_from_collection_for_select(User.all, "id", "title") %>

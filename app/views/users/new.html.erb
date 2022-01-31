@@ -1,5 +1,5 @@
 
-<%= form_for @user  do |f| %>
+<%= form_with(model: @user , url: signup_path) do |f| %>
     <h1>Bug Tracking System </h1><br><br>
     <h1>Sign Up</h1>
  <%= f.label :name %><br>
@@ -11,7 +11,7 @@
     <%= f.label :password %><br>
     <%= f.password_field :password %><br><br><br>
     <%= f.label :user_type %><br>
-    <%= f.select :user_type,['select User type', 'Manager',' Developer',' QA '] %>
+    <%= f.select :user_type,['select User type', 'manager','developer','qa'] %>
     <%= f.submit %>
     <!--... -->
   <% end %>

@@ -1,6 +1,22 @@
-<h1>Show Projects Page</h1><br><br>
+<h1>Show Specific Projects</h1><br><br>
+
+<p>Project Title: <%= @project.title %></p><br><br>
+<%= button_to "Delete", project_path , method: :delete %><br><br>
+<%= link_to 'editproject', edit_project_path(@project) %><br><br>
+<%= link_to 'Assignuser', add_user_project_path(@project) %><br><br>
+<%= link_to 'back', projects_path %><br><br><br><br>
+
+<h1>Show Specific Bug</h1><br><br>
+<% @project.bugs.each do |bug| %>
+  <p>
+    <strong>Bug Title:</strong>
+    <a href="/bugs/<%= bug.id%>">
+      <%= bug.descriptive_title %>
+  </p>
+<% end %>
+<%= link_to'createbug', new_bug_path(:project_id => @project.id) %><br><br>
 
 
- <%= link_to 'createproject', '/projects/new' %>
+
 
 

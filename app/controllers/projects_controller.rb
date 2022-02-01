@@ -1,11 +1,23 @@
 class ProjectsController < ApplicationController
 
   def index
-    @project = Project.all
+    if current_user.user_type == 'developer'
+      @pro=ProjectUser.where(user_id:current_user.id).pluck(:project_id)
+      @projects=Project.where(id: @pro)
+    else
+    @projects = Project.accessible_by(current_ability)
+    end
   end
 
   def show
-      @project = Project.find(params[:id])
+    @project = Project.find(params[:id])
+    @project_id = Project.find(params[:id])
+    @bugs=Bug.where(project_id: @project_id)
+    @p_user=ProjectUser.where(project_id: @project_id).pluck(:user_id)
+
+    @project_username=User.where(id:@p_user)
+     @user=User.all
+     @project_user=ProjectUser.where(user_id:@p_user)
   end
 
   def new
@@ -21,7 +33,8 @@ class ProjectsController < ApplicationController
     end
   end
   def edit
-       @project = Project.find(params[:id])
+     @user = current_user.id
+     @project = Project.find(params[:id])
   end
 
   def update
@@ -41,25 +54,17 @@ class ProjectsController < ApplicationController
     redirect_to projects_path
   end
 
-  def add_user
-    @user = Project_users.find(params[:user_id])
-    if @project&.users << @user
-      redirect_to project
-    else
-      redirect_to projects_path, notice: "Can not add user to project"
-    end
-  end
-
   def remove_user
-    if @project.users.destroy(@user)
-      redirect_to @project
-    else
-      redirect_to projects_path, notice: "Can not remove user from project"
+    @project_id = params[:project_id]
+    @user_id = params[:user_id]
+    @project_user=ProjectUser.where(project_id:@project_id,user_id:@user_id).pluck(:id)
+    if ProjectUser.destroy(@project_user)
+      redirect_to '/projects'
     end
   end
 
   private
     def project_params
-      params.require(:project).permit(:user_id,:title)
+      params.require(:project).permit(:user_id, :title, :projectid, :user_assigned)
     end
 end

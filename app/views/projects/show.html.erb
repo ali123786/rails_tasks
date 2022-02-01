@@ -1,10 +1,30 @@
+<%= link_to "BUG TRACKING SYSTEM", '/welcome' %>
 <h1>Show Specific Projects</h1><br><br>
-
-<p>Project Title: <%= @project.title %></p><br><br>
-<%= button_to "Delete", project_path , method: :delete %><br><br>
-<%= link_to 'editproject', edit_project_path(@project) %><br><br>
-<%= link_to 'Assignuser', add_user_project_path(@project) %><br><br>
 <%= link_to 'back', projects_path %><br><br><br><br>
+<p>Project Title: <%= @project.title %></p><br><br>
+<%if current_user.id == @project.user_id%>
+<%= button_to "Delete", project_path(@project), method: :delete,data: { confirm: "Are you sure?" } %><br><br>
+<%= link_to 'editproject', edit_project_path(@project) %><br><br>
+<%end%>
+
+<h2>User Assign</h2>
+<% if @project_username.present?%>
+<%@project_username.each do |p|%>
+   <b>User Id:    </b><%= p.id %>&nbsp;&nbsp;
+   <b>name:    </b><%= p.name %>&nbsp;&nbsp;
+   <b>User Type:</b>    <%= p.user_type %>&nbsp;&nbsp;
+<%if current_user.id == @project.user_id%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <%= link_to "Remove User", remove_user_project_path(:project_id => @project.id,:user_id => p.id) %>
+   <%end%>
+    <%end%>
+<%else%>
+    <p>No users assigned to project</p>
+<%end%>
+<div>
+<%if current_user.id == @project.user_id%>
+<h4><%= link_to "Assign User", new_project_user_path(:project_id => @project.id)%></h4>
+
+<%end%>
 
 <h1>Show Specific Bug</h1><br><br>
 <% @project.bugs.each do |bug| %>
@@ -14,7 +34,9 @@
       <%= bug.descriptive_title %>
   </p>
 <% end %>
-<%= link_to'createbug', new_bug_path(:project_id => @project.id) %><br><br>
+<%if current_user.user_type == 'qa'%>
+<%= link_to'reportbug', new_bug_path(:project_id => @project.id) %><br><br>
+<% end %>
 
 
 

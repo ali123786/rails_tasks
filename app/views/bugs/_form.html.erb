@@ -6,18 +6,22 @@
     <%= f.text_field :deadline, :class => 'form-control col-md-5' %><br><br>
 
     <%= label :bug_type, 'Type: ', :class=>" col-form-label col-md-1" %>
+    <div class="form-control col-md-5",onchange(function)>
       <%= f.radio_button :bug_type, 'Bug' %>
       <%= label :bug_type, 'Bug' %>
       <%= f.radio_button :bug_type, 'feature' %>
       <%= label :bug_type, 'feature' %>
+      </div>
       <% status = ['new', 'started', 'resolved'] %>
       <%= f.label :status, 'Status:', :class=>"col-form-label col-md-1"  %>
       <%= f.select(:status, status,{}, {:class => "form-control col-md-5",:required=>true}) %><br><br>
+       <%= f.hidden_field :creator_id, value: current_user.id  %>
+       <%= f.hidden_field :assign_to, value: nil%>
 
-    <%=f.label :screenshot,'Screen shot:', :class=>"col-form-label" %>
-    <%=f.file_field :screenshot, :class => "form-control",:accept => "image/x-png,image/gif" %><br><br>
-      <%=f.label :project_id,'Project Id:', :class=>"col-form-label" %>
-      <%= f.text_field :project_id, value: @project.id %><br><br><br>
+    <%= f.label :screenshot,'Screen shot:', :class=>"col-form-label" %>
+    <%= f.file_field :screenshot, :class => "form-control",:accept => "image/x-png,image/gif" %><br><br>
+      <%= f.label :project_id,'Project Id:', :class=>"col-form-label" %>
+      <%= f.text_field :project_id, value: @project_id %><br><br><br>
     <%= f.submit  :class => 'btn btn-primary'%>
 <%end%>
 
@@ -27,8 +31,8 @@
       dateFormat: 'dd-mm-yyyy'
     });
   });
- $("input[name='bug[type]']").change(function() {
-    var obj = $("select[name='bug[status]']")[0][2]
+ $("input[name='bug[bug_type]']").change(function() {
+    var obj = $("select[name='bug[status]']")[0][3]
     if(this.value==='bug'){
       obj.value = "resolved"
       obj.text  = "resolved"

@@ -1,10 +1,15 @@
-<% @project.each do |project| %>
+<%= link_to "BUG TRACKING SYSTEM", '/welcome' %>
+<% @projects.each do |project| %>
 <a href="/projects/<%= project.id%>">
 <%= project.title %><br>
 
-<% end %>
-<%= link_to 'createproject', new_project_path %><br><br>
 
+<% end %>
+<%if current_user.user_type == "manager"%>
+<%= link_to 'createproject', new_project_path %><br><br>
+<% end %>
+<br>
+<%= link_to 'back', welcome_path %><br><br><br><br>
 
 
 

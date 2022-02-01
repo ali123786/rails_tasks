@@ -4,9 +4,8 @@ Rails.application.routes.draw do
 
      resources :projects do
     member do
-      get 'add_user'
+      patch 'assign_user'
       get 'remove_user'
-      patch 'add_user'
       patch 'remove_user'
     end
   end
@@ -16,10 +15,13 @@ Rails.application.routes.draw do
   resources :bugs do
     member do
       patch 'assign'
-      patch 'start_working'
-      patch 'work_done'
+      put 'assign'
+      patch 'change_status'
+      put 'change_status'
     end
   end
+
+  resources :project_users
 
    get '/signup', to: 'users#new'
    post '/signup', to: 'users#create'

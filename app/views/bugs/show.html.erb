@@ -1,6 +1,17 @@
 <h1>Show Specific Bug</h1><br><br>
 
-<p>Bug Title: <%= @bug.descriptive_title %></p><br><br>
-<%= button_to "Delete", bug_path, :method => :delete %><br><br>
-
+<h2>
+<b>Bug ID</b>   : <%=@bug.id%><br>
+<b>Bug Title</b> : <%=@bug.descriptive_title%><br>
+<b>Bug Type</b>   : <%=@bug.bug_type%><br>
+<b>Bug Status</b>   : <%=@bug.status%><br></h2>
+  <%if current_user.user_type == 'qa'%>
+  <%= button_to "Delete", bug_path( @bug), :method => :delete %>
+  <%end%>
+  <%if current_user.user_type == 'developer'%>
+ <%= button_to "assign", assign_bug_path(:id=> @bug.id), :method => :put %> <br>
+<%if current_user.id == @bug.assign_to%>
+  <%= button_to "Change status to resolved ", change_status_bug_path(:id=> @bug.id), :method => :put %>
+  <%end%>
+  <%end%>
 

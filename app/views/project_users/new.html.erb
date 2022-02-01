@@ -1,0 +1,6 @@
+<h1>assign user</h1>
+ <%= form_with(model: @project_user, local: true) do |form| %>
+ <%=form.collection_select:user_id, User.all, :id,:name%>
+ <%= form.hidden_field :project_id, value: @project_id  %>
+ <%=form.submit%>
+ <%end%>

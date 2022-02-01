@@ -2,7 +2,7 @@
 <a href="/bugs/<%= bug.id%>">
 <%= bug.descriptive_title %><br>
 <% end %>
-
-<%= link_to'createbug', new_bug_path %><br><br>
-
+<%if current_user.user_type == 'qa'%>
+<%= link_to'createbug', new_bug_path(@project_id) %><br><br>
+<% end %>
 
